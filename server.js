@@ -28,17 +28,46 @@ app.get('/', function (req, res) {
   res.render('index');
 });
 
-app.post('/api/createorder', (req, res) => {
+/**
+ * {
+  "items": [
+    { "menuItemId": 1, "quantity": 10 },
+    { "menuItemId": 2, "quantity": 3 }
+  ],
+  "name": 'mario'
+}
+ */
 
-  db.one(`INSERT INTO orders (id) VALUES (default) RETURNING id`)
-    .then((data) => {
-      res.json({ id: data.id })
+app.post("/order", (req, res) => {
+  // 1. insert into "order" table
+  db.one("INSERT INTO orders (id) VALUES (DEFAULT) RETURNING id")
+  .then(result => {
+      const orderId = result.id;
+      const { items } = req.body;
+      
+      // 2. insert into "order_item" table for each item
+      return Promise.all(items.map(item => {
+        console.log(item);
+        return db.none(
+          "INSERT INTO order_details (order_id, item_id, quantity) VALUES ($1, $2, $3)",
+          [orderId, item.item_id, item.quantity]
+        );
+      })).then(() => orderId);
     })
-    .catch((error) => {
-      console.log(error);
-      res.json({ error: error.message });
-    })
+  .then(orderId => res.json({ orderId: orderId }))
+  .catch(error => res.json({ error: error.message }));
+});
+
+app.get('/menu', function(req, res) {
+  db.any('SELECT name, price, type FROM menu')
+  .then(data => {
+      res.json(data)
+  })
+  .catch(() => {
+      res.json({error: error.message});
+  })
 })
+
 
 app.listen(8080, function () {
   console.log('Listening on port 8080');
