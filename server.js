@@ -29,13 +29,15 @@ app.get('/', function (req, res) {
 });
 
 /**
- * {
+ * example of object to be passed into app.post("/api/order"
+{
   "items": [
-    { "menuItemId": 1, "quantity": 10 },
-    { "menuItemId": 2, "quantity": 3 }
+    { "item_id": 1, "quantity": 10 },
+    { "item_id": 2, "quantity": 3},
+    { "item_id": 3, "quantity": 2},
+    { "item_id": 9, "quantity": 41}
   ],
-  "name": 'mario',
-  "details": "acees code 1234"
+  "details_of_order": "Mario, 012345678, please kock 3 times"
 }
  */
 
@@ -45,11 +47,9 @@ app.post("/api/order", (req, res) => {
   const deliveryPrice = 1;
   // 1. insert into "order" table
   db.one("INSERT INTO orders (id, details_of_order, delivery_price) VALUES (DEFAULT, $1, $2) RETURNING id", [detailsOfOrder, deliveryPrice])
-  .then(result => {
-    
+  .then(result => { 
       const orderId = result.id;
       const { items } = req.body;
-      
       // 2. insert into "order_item" table for each item
       return Promise.all(items.map(item => {
         return db.none(
