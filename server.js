@@ -16,14 +16,6 @@ app.use(bodyParser.json());
 app.use('/static', express.static('static'));
 app.set('view engine', 'hbs');
 
-const menu = {
-  1: {
-    id: 1,
-    name: "Strawberry cheesecake",
-    price: 6
-  }
-};
-
 app.get('/', function (req, res) {
   res.render('index');
 });
@@ -63,7 +55,7 @@ app.post("/api/order", (req, res) => {
 });
 
 app.get('/api/menu', function(req, res) {
-  db.any('SELECT name, price, type FROM menu')
+  db.any('SELECT * FROM menu')
   .then(data => {
       res.json(data)
   })

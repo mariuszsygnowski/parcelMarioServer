@@ -9,23 +9,23 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      menuItems: [],
-      deliveryCharge: 0,
       currentBasket: [],
-      deliveryAddress: '',
-      basketTotal: 0
+      menuItems: []
+      // deliveryCharge: 0,
+      // deliveryAddress: '',
+      // basketTotal: 0
     }
 
-    this.basketItem = this.basketItem.bind(this);
     this.runFetch = this.runFetch.bind(this);
-    this.clearBasket = this.clearBasket.bind(this);
-    this.deliveryCharge = this.deliveryCharge.bind(this);
-    this.addressSet = this.addressSet.bind(this);
+    this.basketItem = this.basketItem.bind(this);
+    // this.clearBasket = this.clearBasket.bind(this);
+    // this.deliveryCharge = this.deliveryCharge.bind(this);
+    // this.addressSet = this.addressSet.bind(this);
 
   }
 
   runFetch() {
-    fetch('/menu')
+    fetch('/api/menu')
       .then((response) => {
         return response.json();
       })
@@ -37,29 +37,42 @@ class App extends React.Component {
       });
   }
 
-  basketItem(item) {
-    this.setState({
-      currentBasket: this.state.currentBasket.concat([item]),
-      basketTotal: this.state.basketTotal + (Number(item.price))
+  basketItem(item, quantity) {
+    const itemAlreadyInBasket = this.state.currentBasket.find((existing) => {
+      return existing.id === item.id;
     });
+
+    let newBasket;
+    if (itemAlreadyInBasket) {
+      newBasket = this.state.currentBasket.map((basketItem) => {
+        if (basketItem.id === item.id) {
+          return Object.assign({}, basketItem, { quantity });
+        } else {
+          return basketItem;
+        }
+      })
+    } else {
+      newBasket = this.state.currentBasket.concat([Object.assign({}, item, { quantity })])
+    }
+    this.setState({ currentBasket: newBasket });    
   };
 
-  clearBasket() {
-    this.setState({
-      basket: [],
-      currentBasket: [],
-      deliveryAddress: '',
-      basketTotal: 0
-    });
-  }
+  // clearBasket() {
+  //   this.setState({
+  //     basket: [],
+  //     currentBasket: [],
+  //     deliveryAddress: '',
+  //     basketTotal: 0
+  //   });
+  // }
 
-  deliveryCharge(amount) {
-    this.setState({deliveryCharge: amount});
-  }
+  // deliveryCharge(amount) {
+  //   this.setState({deliveryCharge: amount});
+  // }
 
-  addressSet(address) {
-    this.setState({deliveryAddress: address});
-  }
+  // addressSet(address) {
+  //   this.setState({deliveryAddress: address});
+  // }
 
   componentWillMount() {
     this.runFetch();
@@ -70,23 +83,23 @@ class App extends React.Component {
       <div className='app'>
         <Header
           currentBasket={this.state.currentBasket}
-          clearBasket={this.clearBasket}
-          basketTotal={this.state.basketTotal}
+          // clearBasket={this.clearBasket}
+          // basketTotal={this.state.basketTotal}
         />
         <CurrentStock
+          menuItems={this.state.menuItems}
           basketItem={this.basketItem}
-          stockListArray={this.state.stockListArray}
-          deliveryCharge={this.state.deliveryCharge}
-          deliveryChargeSet={this.deliveryCharge}
-          deliveryAddress={this.state.deliveryAddress}
-          addressSet={this.addressSet}
+          // deliveryCharge={this.state.deliveryCharge}
+          // deliveryChargeSet={this.deliveryCharge}
+          // deliveryAddress={this.state.deliveryAddress}
+          // addressSet={this.addressSet}
         />
         <TotalPrice
-          currentBasket={this.state.currentBasket}
-          clearBasket={this.clearBasket}
-          basketTotal={this.state.basketTotal}
-          deliveryCharge={this.state.deliveryCharge}
-          deliveryAddress={this.state.deliveryAddress}
+          // currentBasket={this.state.currentBasket}
+          // clearBasket={this.clearBasket}
+          // basketTotal={this.state.basketTotal}
+          // deliveryCharge={this.state.deliveryCharge}
+          // deliveryAddress={this.state.deliveryAddress}
         />
       </div>
     )
