@@ -42,19 +42,16 @@ app.get('/', function (req, res) {
 app.post("/api/order", (req, res) => {
    //this will be additional informations to order like name, phone number or how to enter to bulding
   const detailsOfOrder = req.body.details_of_order; 
+  const deliveryPrice = 1;
   // 1. insert into "order" table
-  db.one("INSERT INTO orders (id, details_of_order) VALUES (DEFAULT, $1) RETURNING id, details_of_order", [detailsOfOrder])
+  db.one("INSERT INTO orders (id, details_of_order, delivery_price) VALUES (DEFAULT, $1, $2) RETURNING id", [detailsOfOrder, deliveryPrice])
   .then(result => {
     
-      const detailsOfOrderFromServer = result.details_of_order;
       const orderId = result.id;
-      const deliveryPrice = result.delivery_price;
       const { items } = req.body;
-      // console.log(detailsOfOrderFromServer);
       
       // 2. insert into "order_item" table for each item
       return Promise.all(items.map(item => {
-        // console.log(item);
         return db.none(
           "INSERT INTO order_details (order_id, item_id, quantity) VALUES ($1, $2, $3)",
           [orderId, item.item_id, item.quantity]
@@ -77,7 +74,7 @@ app.get('/api/menu', function(req, res) {
 
 app.get('/api/order/:orderId', function(req, res) {
   const orderId = req.params.orderId;
-  db.any('SELECT menu.id, menu.name, order_details.quantity FROM menu, order_details, orders WHERE order_details.order_id = $1 AND order_details.item_id = menu.id AND orders.id = order_details.item_id', [orderId])
+  db.any('SELECT menu.id, menu.name, menu.type, order_details.quantity, orders.delivery_price, orders.details_of_order FROM menu, order_details, orders WHERE order_details.order_id = $1 AND order_details.item_id = menu.id AND orders.id = $1', [orderId])
   .then(data => {
       res.json(data)
   })
@@ -85,7 +82,6 @@ app.get('/api/order/:orderId', function(req, res) {
       res.json({error: error.message});
   })
 })
-
 
 app.listen(8080, function () {
   console.log('Listening on port 8080');
