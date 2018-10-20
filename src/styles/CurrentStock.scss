@@ -1,0 +1,30 @@
+.currentStock {
+    &__deliveryCharge {
+        display: grid;
+        grid-template-columns: auto min-content;
+        justify-content: flex-end;
+        align-items: center;
+   
+        input {
+            height: min-content;
+            width: 2rem;
+            font-size: 1rem;
+            text-align: end;
+       
+        }
+
+        // Turn Off Number Input Spinners
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    }
+    &__address {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        input {
+            width: calc(100% - 0.4rem);
+        }
+    }
+}
