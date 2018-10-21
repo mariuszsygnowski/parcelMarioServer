@@ -1,4 +1,5 @@
 import React from 'react';
+import { log } from 'util';
 
 class Header extends React.Component {
     constructor() {
@@ -42,17 +43,20 @@ class Header extends React.Component {
     render() {        
         // console.log( this.props.currentBasket);
         let quantity = 0;
+        let totalprice = 0;
         this.props.currentBasket.forEach(element => {
+            // console.log(element);
+            totalprice += element.price * element.quantity;
             quantity += element.quantity;
         });        
         
         return (
-            <div className='header container'>
-                <span>Mario Food</span>
-                <span>Current items in basket: {quantity} </span>
+            <nav className='header container'>
+                <h1 className='header__title'>MARIO BURGERS</h1>
+                <span className='header__basketQuantity'>£{this.props.totalprice} ({this.props.quantity}) </span>
                 {/* <button onClick={this.handleClick}>Order!</button>
                 <p onClick={this.fetchCurrentBasket} >fetch</p> */}
-            </div>
+            </nav>
         )
     }
 }

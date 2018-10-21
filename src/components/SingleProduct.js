@@ -36,10 +36,10 @@ class SingleProduct extends React.Component {
     }
 
     render() {
-        console.log(this.props.singleItem);
+        // console.log(this.props.singleItem);
         
         return (
-            <div className='singleProduct'>
+            <div className={'singleProduct'}>
                 <form onSubmit={this.handleSubmit} className='singleProduct__form'>
                     <img className='singleProduct__image' src={this.props.singleItem.url} alt=""/>
                     <p className='singleProduct__name'>{this.props.singleItem.name}</p>

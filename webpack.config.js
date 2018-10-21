@@ -18,7 +18,12 @@ module.exports = {
         test: /\.scss$/,
         use: [
           {
-            loader: "style-loader"
+            loader: "style-loader",
+            options: {
+              modules: true,
+              importLoaders: 1,
+              localIdentName: '[sha1:hash:hex:4]'
+            }
           }, {
             loader: "css-loader"
           }, {

@@ -6,27 +6,39 @@ class TotalPrice extends React.Component {
         // this.state = {
         //     totalPrice: 0
         // }
-        // this.handleClick = this.handleClick.bind(this);
+        this.handleClick = this.handleClick.bind(this);
         // this.fetchCurrentBasket = this.fetchCurrentBasket.bind(this);
     }
 
-    // handleClick () {
+    handleClick () {
+        let items = [];
+        {this.props.currentBasket.forEach(item => {
+            items.push({"item_id": item.id, "quantity": item.quantity})
+        })}
+        let basketToServer = Object.assign({}, {"items": basket}, {"details_of_order": "Mario, 012345678, please kock 3 times"} )        
+        
+        fetch('/api/order', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+            },
+            body: JSON.stringify(basketToServer)
+        })
+        .then((response) => {
+            // console.log(response);
+            
+            return response.json();
+          })
+          .then((body) => {
+              
+            alert(body.orderId)
+            // this.setState({
+            //   menuItems: body
+            })
+        ;
 
-    //     fetch('/order', {
-    //         method: 'POST',
-    //         headers: {
-    //             "Content-Type": "application/json; charset=utf-8",
-    //         },
-    //         body: JSON.stringify({
-    //             currentBasket: this.props.currentBasket,
-    //             basketTotal: this.props.basketTotal,
-    //             deliveryCharge: this.props.deliveryCharge,
-    //             deliveryAddress: this.props.deliveryAddress
-    //         })
-    //     });
-
-    //     this.props.clearBasket();
-    // }
+        this.props.clearBasket();
+    }
 
     // fetchCurrentBasket() {
     //     fetch('/basket')
@@ -38,10 +50,12 @@ class TotalPrice extends React.Component {
     //       });
     //   }
 
-    render() {        
+    render() {     
+        // console.log(this.props.currentBasket);
+           
         return (
             <div className='totalPrice container'>
-                {/* <button onClick={this.handleClick}>£{this.props.basketTotal + this.props.deliveryCharge} ({this.props.currentBasket.length})</button> */}
+                <button className='totalPrice__button' onClick={this.handleClick}>£{this.props.totalprice} ({this.props.quantity}) + delivery: {this.props.deliveryCharge}</button>
             </div>
         )
     }

@@ -1,20 +1,20 @@
+@import './Header.scss';
+@import './Menu.scss';
 @import './TotalPrice.scss';
-@import './SingleProduct.scss';
-@import './CurrentStock.scss';
 @import './reset.scss';
+@import url('https://fonts.googleapis.com/css?family=Varela+Round');
+
 html {
-  font-family: "Hind Vadodara","Helvetica Neue",Helvetica,sans-serif;
+  font-family: 'Varela Round', sans-serif;
+  font-size: 18px;
 }
 
 .container {
-  margin: 0 0.5rem;
+  margin: 0 0.8rem;
+  background-color: #fff;
 }
 
 .app {
+  // background-color: red;
   width: 100vw;
-  display: grid;
-
-  .header {
-    display: none;
-  }
 }

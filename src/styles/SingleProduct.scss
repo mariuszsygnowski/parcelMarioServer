@@ -1,12 +1,13 @@
-$buttonSize: 1rem;
+$fontSize: 1.5rem;
 
 @mixin buttons {
+    display: grid;
+    align-content: center;
     -webkit-border-radius: 999px;
     -moz-border-radius: 999px;
-    border-radius: 999px;
-    //   behavior: url(PIE.htc);
-    width: $buttonSize;
-    height: $buttonSize;
+    border-radius: 999px; //   behavior: url(PIE.htc);
+    width: $fontSize + 0.5rem;
+    height: $fontSize + 0.5rem;
     padding: 0px;
     background: #779BCA;
     border: 1px solid #003580;
@@ -18,7 +19,11 @@ $buttonSize: 1rem;
     -o-transition: background 0.2s linear;
     transition: background 0.2s linear;
     transition: color 0.2s linear;
+    outline:none;
+    font-size: $fontSize;
+    padding-bottom: 0.4rem;
 }
+
 @mixin buttonsHover {
     color: white;
     background: #3F69A0;
@@ -41,25 +46,31 @@ $buttonSize: 1rem;
     }
     &__name {
         grid-area: name;
+        font-size: $fontSize;
     }
     &__price {
         grid-area: price;
+        font-size: $fontSize;
     }
     &__buttonSubtractingQuantity {
         grid-area: minus;
         @include buttons;
-        line-height: 0.9em;
-        margin-bottom: 1px;
+        // line-height: 0.9em;
+        // margin-bottom: 1px;
     }
     &__buttonSubtractingQuantity:hover {
         @include buttonsHover;
+        display: grid;
+        align-items: center;
     }
     &__quantityInput {
         grid-area: quantity;
-        width: 0.8rem;
+        width: 1.5rem + 0.5rem;
         text-align: center;
         border: none;
         height: 100%;
+        font-size: $fontSize;
+        outline:none;
     } //Turn Off Number Input Spinners
     input[type=number]::-webkit-inner-spin-button,
     input[type=number]::-webkit-outer-spin-button {
@@ -69,7 +80,6 @@ $buttonSize: 1rem;
     &__buttonAddQuantity {
         grid-area: add;
         @include buttons;
-        line-height: 1.1em;
     }
     &__buttonAddQuantity:hover {
         @include buttonsHover;

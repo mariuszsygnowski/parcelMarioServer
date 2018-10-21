@@ -1,5 +1,5 @@
 import React from 'react';
-import CurrentStock from './CurrentStock';
+import Menu from './Menu';
 import Header from './Header';
 import TotalPrice from './TotalPrice'
 
@@ -10,16 +10,18 @@ class App extends React.Component {
     super();
     this.state = {
       currentBasket: [],
+      totalprice: 0,
+      quantity: 0,
+      deliveryCharge: '£1.99',
       menuItems: []
-      // deliveryCharge: 0,
       // deliveryAddress: '',
       // basketTotal: 0
     }
 
     this.runFetch = this.runFetch.bind(this);
     this.basketItem = this.basketItem.bind(this);
-    // this.clearBasket = this.clearBasket.bind(this);
-    // this.deliveryCharge = this.deliveryCharge.bind(this);
+    this.priceAndQuantity = this.priceAndQuantity.bind(this);
+    this.clearBasket = this.clearBasket.bind(this);
     // this.addressSet = this.addressSet.bind(this);
 
   }
@@ -54,17 +56,45 @@ class App extends React.Component {
     } else {
       newBasket = this.state.currentBasket.concat([Object.assign({}, item, { quantity })])
     }
-    this.setState({ currentBasket: newBasket });    
+    this.setState({ currentBasket: newBasket }, () => {
+      this.priceAndQuantity(newBasket);
+    });    
+    
   };
 
-  // clearBasket() {
-  //   this.setState({
-  //     basket: [],
-  //     currentBasket: [],
-  //     deliveryAddress: '',
-  //     basketTotal: 0
-  //   });
-  // }
+  priceAndQuantity(basket) {
+    let localquantity = 0;
+    let localtotalprice = 0;
+    basket.forEach(element => {
+        localtotalprice += element.price * element.quantity;
+        localquantity += element.quantity;        
+        this.setState({
+          quantity: localquantity,
+          totalprice: localtotalprice
+        })
+        if (localtotalprice < 20) {
+          this.setState({
+            deliveryCharge: '£1.99'
+          })
+        }
+        if (localtotalprice >= 20) {
+          this.setState({
+            deliveryCharge: 'free'
+          })
+        }
+    });  
+  }
+
+  clearBasket() {
+    this.setState({
+      currentBasket: [],
+      totalprice: 0,
+      quantity: 0,
+      deliveryCharge: '£1.99',
+      menuItems: []
+    });
+    this.runFetch();
+  }
 
   // deliveryCharge(amount) {
   //   this.setState({deliveryCharge: amount});
@@ -83,10 +113,12 @@ class App extends React.Component {
       <div className='app'>
         <Header
           currentBasket={this.state.currentBasket}
+          totalprice={this.state.totalprice}
+          quantity={this.state.quantity}
           // clearBasket={this.clearBasket}
           // basketTotal={this.state.basketTotal}
         />
-        <CurrentStock
+        <Menu
           menuItems={this.state.menuItems}
           basketItem={this.basketItem}
           // deliveryCharge={this.state.deliveryCharge}
@@ -95,11 +127,11 @@ class App extends React.Component {
           // addressSet={this.addressSet}
         />
         <TotalPrice
-          // currentBasket={this.state.currentBasket}
-          // clearBasket={this.clearBasket}
-          // basketTotal={this.state.basketTotal}
-          // deliveryCharge={this.state.deliveryCharge}
-          // deliveryAddress={this.state.deliveryAddress}
+          totalprice={this.state.totalprice}
+          quantity={this.state.quantity}
+          clearBasket={this.clearBasket}
+          deliveryCharge={this.state.deliveryCharge}
+          currentBasket={this.state.currentBasket}
         />
       </div>
     )

@@ -1,14 +1,15 @@
 .totalPrice {
+    position: absolute;
+    bottom: 0;
     display: grid;
-    grid-template-columns: 1fr;
     height: 3rem;
-
-    button {
-        height: 3rem;
+    width: calc(100% - 1.5rem);
+    &__button {
+        height: 9rem;
         color: white;
         background-color: #266abd;
         font-size: 1.2rem;
-        width: 100%;
+        width: auto;
         height: 100%;
     }
 }
