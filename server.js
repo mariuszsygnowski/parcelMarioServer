@@ -37,6 +37,8 @@ app.post("/api/order", (req, res) => {
    //this will be additional informations to order like name, phone number or how to enter to bulding
   const detailsOfOrder = req.body.details_of_order; 
   const deliveryPrice = 1;
+  console.log(req.body);
+  
   // 1. insert into "order" table
   db.one("INSERT INTO orders (id, details_of_order, delivery_price) VALUES (DEFAULT, $1, $2) RETURNING id", [detailsOfOrder, deliveryPrice])
   .then(result => { 

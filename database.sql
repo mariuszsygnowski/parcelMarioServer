@@ -5,7 +5,7 @@ id SERIAL PRIMARY KEY,
 name VARCHAR (100) NOT NULL,
 price NUMERIC(10,2) DEFAULT 0,
 url VARCHAR (200),
-description TEXT NOT NULL,
+description TEXT,
 type VARCHAR (100) NOT NULL
 );
 
@@ -18,8 +18,18 @@ INSERT INTO menu (name, price, url, description, type) VALUES ('Bacon Cheeseburg
 'https://www.mymarios.com/site/wp-content/uploads/1972/06/burgers-bacon-cheeseburger.jpg', 
 'Relish the double flavour of our signature Bacon, Beef Patty, Cheddar Cheese, Onions, Tomatoes and Lettuce.'
 , 'burgers');
+INSERT INTO menu (name, price, url, description, type) VALUES ('Garden Burger', 4.1, 'https://www.mymarios.com/site/wp-content/uploads/1972/06/burgers-veggie-burger.jpg', 'Delightfully savoury, revel in the Garden Burger with our Soya Patty, Onions, Tomatoes and Lettuce.', 'burgers');
+INSERT INTO menu (name, price, url, description, type) VALUES ('Grilled Cheese', 2.25, 'https://www.mymarios.com/site/wp-content/uploads/1972/06/burgers-grilled-cheese.jpg', 'Simply delightful, our Grilled Cheddar Cheese, Onions, Tomatoes and Lettuce burger stays one of our premium pleasures.', 'burgers');
+INSERT INTO menu (name, price, url, description, type) VALUES ('Soft Drinks Small', 0.5, 'https://www.mymarios.com/site/wp-content/uploads/1972/06/beverages-soft-drinks.jpg', 'SMALL', 'drinks');
+INSERT INTO menu (name, price, url, description, type) VALUES ('Soft Drinks Medium', 0.9, 'https://www.mymarios.com/site/wp-content/uploads/1972/06/beverages-soft-drinks.jpg', 'MEDIUM', 'drinks');
+INSERT INTO menu (name, price, url, description, type) VALUES ('Soft Drinks Large', 1.2, 'https://www.mymarios.com/site/wp-content/uploads/1972/06/beverages-soft-drinks.jpg', 'LARGE', 'drinks');
 
-
+INSERT INTO menu (name, price, url, description, type) VALUES 
+('', 1.2, '', '', 'desserts');
+INSERT INTO menu (name, price, url, description, type) VALUES 
+('', 1.2, '', '', 'desserts');
+INSERT INTO menu (name, price, url, description, type) VALUES 
+('', 1.2, '', '', 'desserts');
 CREATE TABLE orders (
 id SERIAL PRIMARY KEY,
 delivery_price NUMERIC(10,2) DEFAULT 2,

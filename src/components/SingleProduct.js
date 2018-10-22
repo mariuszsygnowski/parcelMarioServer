@@ -18,10 +18,10 @@ class SingleProduct extends React.Component {
         this.props.basketItem(this.props.singleItem, this.state.quantity);
     }
 
-    inputHandle(event) {  
+    inputHandle(event) {
         if (Number(event.target.value) >= 0) {
-            this.setState({ quantity: Number(event.target.value) }, 
-            () => {this.props.basketItem(this.props.singleItem, this.state.quantity)});
+            this.setState({ quantity: Number(event.target.value) },
+                () => { this.props.basketItem(this.props.singleItem, this.state.quantity) });
         }
     }
 
@@ -37,17 +37,20 @@ class SingleProduct extends React.Component {
 
     render() {
         // console.log(this.props.singleItem);
-        
+
         return (
             <div className={'singleProduct'}>
                 <form onSubmit={this.handleSubmit} className='singleProduct__form'>
-                    <img className='singleProduct__image' src={this.props.singleItem.url} alt=""/>
+                    <img className='singleProduct__image' src={this.props.singleItem.url} alt="" />
                     <p className='singleProduct__name'>{this.props.singleItem.name}</p>
                     <p className='singleProduct__price'>£{this.props.singleItem.price}</p>
                     <button className='singleProduct__buttonSubtractingQuantity' onClick={this.subtractingQuantity}>&#8211;</button>
                     <input className='singleProduct__quantityInput' onChange={this.inputHandle} type="number" value={this.state.quantity} />
                     <button className='singleProduct__buttonAddQuantity' onClick={this.addQuantity}>&#43;</button>
-                    <p className='singleProduct__description'>{this.props.singleItem.description}</p>
+                    <p className='singleProduct__description'>
+                        <p>Description:</p>
+                        <p>{this.props.singleItem.description}</p>
+                    </p>
                 </form>
             </div>
         )

@@ -1,13 +1,14 @@
 $fontSize: 1.5rem;
-
+$backgroundColor: #ebebeb;
+$borderRadius: 0.5rem;
 @mixin buttons {
     display: grid;
     align-content: center;
     -webkit-border-radius: 999px;
     -moz-border-radius: 999px;
-    border-radius: 999px; //   behavior: url(PIE.htc);
-    width: $fontSize + 0.5rem;
-    height: $fontSize + 0.5rem;
+    border-radius: 999px;
+    width: $fontSize;
+    height: $fontSize;
     padding: 0px;
     background: #779BCA;
     border: 1px solid #003580;
@@ -19,9 +20,8 @@ $fontSize: 1.5rem;
     -o-transition: background 0.2s linear;
     transition: background 0.2s linear;
     transition: color 0.2s linear;
-    outline:none;
-    font-size: $fontSize;
-    padding-bottom: 0.4rem;
+    outline: none;
+    font: $fontSize Arial, sans-serif;
 }
 
 @mixin buttonsHover {
@@ -33,30 +33,37 @@ $fontSize: 1.5rem;
 .singleProduct {
     &__form {
         display: grid;
-        grid-template-rows: min-content;
-        grid-template-columns: repeat(4, min-content) 1fr;
-        grid-template-areas: 'price minus quantity add name';
+        grid-template-rows: $fontSize * 2;
+        grid-template-columns: ($fontSize * 2.6) repeat(4, min-content) 1fr;
+        grid-template-areas: 'imgage price minus quantity add name';
         align-items: center;
         grid-gap: 0.2rem;
+        background-color: $backgroundColor;
+        border-radius: $borderRadius;
+
     }
     &__image {
-        grid-area: img;
-        width: 100%;
-        display: none;
+        grid-area: imgage;
+        width: auto;
+        border-top-left-radius: $borderRadius;
+        border-bottom-left-radius: $borderRadius;
+        // background-color: white;
+        height: 100%; // display: none;
     }
     &__name {
         grid-area: name;
-        font-size: $fontSize;
+        font-size: $fontSize - 0.2rem;
+        width: auto;
     }
     &__price {
         grid-area: price;
-        font-size: $fontSize;
+        font-size: $fontSize - 0.2rem;
     }
     &__buttonSubtractingQuantity {
         grid-area: minus;
         @include buttons;
-        // line-height: 0.9em;
-        // margin-bottom: 1px;
+        line-height: 0.2rem;
+        margin-bottom: 1px;
     }
     &__buttonSubtractingQuantity:hover {
         @include buttonsHover;
@@ -70,7 +77,8 @@ $fontSize: 1.5rem;
         border: none;
         height: 100%;
         font-size: $fontSize;
-        outline:none;
+        outline: none;
+        background-color: $backgroundColor;
     } //Turn Off Number Input Spinners
     input[type=number]::-webkit-inner-spin-button,
     input[type=number]::-webkit-outer-spin-button {
@@ -87,5 +95,6 @@ $fontSize: 1.5rem;
     &__description {
         grid-area: des;
         display: none;
+        margin-right: 0.5rem;
     }
 }

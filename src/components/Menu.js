@@ -29,7 +29,7 @@ class Menu extends React.Component {
 
                         <li className='menu__burgers'>Burgers
                         {this.props.menuItems.map(item => {
-                                if (item.type === 'burgers') {  
+                                if (item.type === 'burgers') {
                                     return <SingleProduct
                                         key={item.id}
                                         singleItem={item}
@@ -51,6 +51,17 @@ class Menu extends React.Component {
                             })}
                         </li>
 
+                        <li className='menu__desserts'>Desserts
+                        {this.props.menuItems.map(item => {
+                                if (item.type === 'desserts') {
+                                    return <SingleProduct
+                                        key={item.id}
+                                        singleItem={item}
+                                        basketItem={this.props.basketItem}
+                                    />;
+                                }
+                            })}
+                        </li>
                     </ul>
                 </nav>
 

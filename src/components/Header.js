@@ -53,7 +53,7 @@ class Header extends React.Component {
         return (
             <nav className='header container'>
                 <h1 className='header__title'>MARIO BURGERS</h1>
-                <span className='header__basketQuantity'>£{this.props.totalprice} ({this.props.quantity}) </span>
+                <span className='header__basketQuantity'>£{this.props.totalprice} ({this.props.quantity}) + {this.props.deliveryCharge} </span>
                 {/* <button onClick={this.handleClick}>Order!</button>
                 <p onClick={this.fetchCurrentBasket} >fetch</p> */}
             </nav>

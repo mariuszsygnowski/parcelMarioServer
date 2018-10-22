@@ -15,7 +15,7 @@ class TotalPrice extends React.Component {
         {this.props.currentBasket.forEach(item => {
             items.push({"item_id": item.id, "quantity": item.quantity})
         })}
-        let basketToServer = Object.assign({}, {"items": basket}, {"details_of_order": "Mario, 012345678, please kock 3 times"} )        
+        let basketToServer = Object.assign({}, {"items": items}, {"details_of_order": "Mario, 012345678, please kock 3 times"} )        
         
         fetch('/api/order', {
             method: 'POST',

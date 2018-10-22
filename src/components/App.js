@@ -115,6 +115,7 @@ class App extends React.Component {
           currentBasket={this.state.currentBasket}
           totalprice={this.state.totalprice}
           quantity={this.state.quantity}
+          deliveryCharge={this.state.deliveryCharge}
           // clearBasket={this.clearBasket}
           // basketTotal={this.state.basketTotal}
         />
