@@ -1,7 +1,11 @@
-"use strict";
+// "use strict";
 require("dotenv").config();
 
-const rootCas = require("ssl-root-cas/latest").create();
+("use strict");
+var rootCas = require("ssl-root-cas/latest").create();
+
+// default for all https requests
+// (whether using https directly, request, or another module)
 require("https").globalAgent.options.ca = rootCas;
 
 const fetch = require("node-fetch");
@@ -124,63 +128,12 @@ app.get("/d/page/:page", function(req, res) {
 });
 
 app.post("/demot", (req, res) => {
-  // console.log(req.body);
   // res.json(req.body);
 
-  fetch("https://api.parcelmonkey.co.uk/GetQuote", {
-    method: "post",
-    headers: {
-      apiversion: 3.1,
-      userid: 308283,
-      token: "4j0bGNwJgm"
-    },
-    body: JSON.stringify({
-      origin: req.body.textCountryFrom,
-      destination: req.body.textCountryTo,
-      boxes: [
-        {
-          length: req.body.textLengthBox,
-          width: req.body.textWidthBox,
-          height: req.body.textHeightBox,
-          weight: req.body.textWeightBox
-        }
-      ],
-      goods_value: 0,
-      sender: {
-        name: "Rich",
-        phone: "01234567890",
-        address1: "Unit 21 Tollgate",
-        town: "purfleet",
-        county: "essex",
-        postcode: "RM19 1ZY"
-      },
-      recipient: {
-        name: "Nicola",
-        phone: "01234567890",
-        email: "nicola@example.com",
-        address1: "2 Baker's Yard",
-        address2: "",
-        town: "purfleet",
-        county: "essex",
-        postcode: "RM19 1ZY"
-      }
-    })
-  })
-    .then(response => console.log(response))
-    .then(body => {
-      console.log(body);
-      res.json(body);
-
-      // if (body) {
-      //   // this.setState({ resultsArray: body });
-      //   //   {
-      //   //     this.props.array(this.state.resultsArray);
-      //   //   }
-      // }
-    })
-    .catch(error => {
-      console.log("Server failed to return data: " + error);
-    });
+  fetch("https://api.parcelmonkey.co.uk/GetQuote", {}).catch(error => {
+    console.log("Server failed to return data: " + error);
+    res.json(error);
+  });
 });
 
 app.post("/api/order", (req, res) => {
