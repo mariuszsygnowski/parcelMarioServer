@@ -1,8 +1,4 @@
 import React from "react";
-import Menu from "./Menu";
-import Header from "./Header";
-import Form from "./Form";
-import TotalPrice from "./TotalPrice";
 
 import "../styles/App.scss";
 
