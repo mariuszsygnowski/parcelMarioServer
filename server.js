@@ -1,4 +1,8 @@
+"use strict";
 require("dotenv").config();
+
+const rootCas = require("ssl-root-cas/latest").create();
+require("https").globalAgent.options.ca = rootCas;
 
 const fetch = require("node-fetch");
 const superagent = require("superagent");
@@ -121,6 +125,7 @@ app.get("/d/page/:page", function(req, res) {
 
 app.post("/demot", (req, res) => {
   // console.log(req.body);
+  // res.json(req.body);
 
   fetch("https://api.parcelmonkey.co.uk/GetQuote", {
     method: "post",
@@ -161,12 +166,10 @@ app.post("/demot", (req, res) => {
       }
     })
   })
-    .then(response => {
-      return response.json();
-    })
+    .then(response => console.log(response))
     .then(body => {
       console.log(body);
-      res.json({ body });
+      res.json(body);
 
       // if (body) {
       //   // this.setState({ resultsArray: body });
