@@ -11,8 +11,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      resultsArray: [],
-      arrayOfPrices: []
+      resultsArray: []
     };
 
     this.handleResults = this.handleResults.bind(this);

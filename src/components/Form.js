@@ -7,15 +7,145 @@ class Form extends React.Component {
   constructor() {
     super();
     this.state = {
-      fetchRequest: {
-        origin: "GB",
-        destination: "GB",
+      textCountryFrom: "gb",
+      textCountryTo: "gb",
+      textPostcodeFrom: "EC1R 3DD",
+      textPostcodeTo: "EC1R 3DD",
+      textWeightBox: 1,
+      textLengthBox: 10,
+      textWidthBox: 10,
+      textHeightBox: 10,
+      textCountryFromErrorMessage: "",
+      textCountryToErrorMessage: "",
+      textPostcodeFromErrorMessage: "",
+      textPostcodeToErrorMessage: "",
+      textWeightBoxErrorMessage: "",
+      textLengthBoxErrorMessage: "",
+      textWidthBoxErrorMessage: "",
+      textHeightBoxErrorMessage: "",
+      displayOffOn: "displayNone",
+      resultsArray: []
+    };
+    // this.state = {
+    //   fetchRequest: {
+    //     origin: "GB",
+    //     destination: "GB",
+    //     boxes: [
+    //       {
+    //         length: 10,
+    //         width: 10,
+    //         height: 10,
+    //         weight: 5
+    //       }
+    //     ],
+    //     goods_value: 0,
+    //     sender: {
+    //       name: "Rich",
+    //       phone: "01234567890",
+    //       address1: "Unit 21 Tollgate",
+    //       town: "purfleet",
+    //       county: "essex",
+    //       postcode: "RM19 1ZY"
+    //     },
+    //     recipient: {
+    //       name: "Nicola",
+    //       phone: "01234567890",
+    //       email: "nicola@example.com",
+    //       address1: "2 Baker's Yard",
+    //       address2: "",
+    //       town: "purfleet",
+    //       county: "essex",
+    //       postcode: "RM19 1ZY"
+    //     }
+    //   },
+    //   displayOffOn: "displayNone",
+    //   resultsArray: []
+    // };
+    this.countryFrom = this.countryFrom.bind(this);
+    this.countryTo = this.countryTo.bind(this);
+    this.postcodeFrom = this.postcodeFrom.bind(this);
+    this.postcodeTo = this.postcodeTo.bind(this);
+    this.weightBox = this.weightBox.bind(this);
+    this.lengthBox = this.lengthBox.bind(this);
+    this.widthBox = this.widthBox.bind(this);
+    this.heightBox = this.heightBox.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.runFetch = this.runFetch.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    this.runFetch();
+  }
+
+  countryFrom(text) {
+    this.setState({
+      textCountryFrom: text
+    });
+  }
+
+  countryTo(text) {
+    this.setState({
+      textCountryTo: text
+    });
+  }
+
+  postcodeFrom(text) {
+    this.setState({
+      textPostcodeFrom: text
+    });
+  }
+
+  postcodeTo(text) {
+    this.setState({
+      textPostcodeTo: text
+    });
+  }
+
+  weightBox(text) {
+    this.setState({
+      textWeightBox: text
+    });
+  }
+
+  lengthBox(text) {
+    this.setState({
+      textLengthBox: text
+    });
+  }
+
+  widthBox(text) {
+    this.setState({
+      textWidthBox: text
+    });
+  }
+
+  heightBox(text) {
+    this.setState({
+      textHeightBox: text
+    });
+  }
+
+  componentWillMount() {
+    // this.runFetch();
+  }
+
+  runFetch() {
+    fetch("parcelmonkey", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      body: JSON.stringify({
+        origin: this.state.textCountryFrom,
+        destination: this.state.textCountryTo,
         boxes: [
           {
-            length: 10,
-            width: 10,
-            height: 10,
-            weight: 5
+            length: this.state.textLengthBox,
+            width: this.state.textWidthBox,
+            height: this.state.textHeightBox,
+            weight: this.state.textWeightBox
           }
         ],
         goods_value: 0,
@@ -37,123 +167,7 @@ class Form extends React.Component {
           county: "essex",
           postcode: "RM19 1ZY"
         }
-      },
-      displayOffOn: "displayNone",
-      resultsArray: []
-    };
-    this.countryFrom = this.countryFrom.bind(this);
-    this.countryTo = this.countryTo.bind(this);
-    this.postcodeFrom = this.postcodeFrom.bind(this);
-    this.postcodeTo = this.postcodeTo.bind(this);
-    this.weightBox = this.weightBox.bind(this);
-    this.lengthBox = this.lengthBox.bind(this);
-    this.widthBox = this.widthBox.bind(this);
-    this.heightBox = this.heightBox.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.runFetch = this.runFetch.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    this.runFetch();
-  }
-
-  countryFrom(text) {
-    this.setState({
-      fetchRequest: {
-        origin: text
-      }
-    });
-  }
-
-  countryTo(text) {
-    this.setState({
-      fetchRequest: {
-        destination: text
-      }
-    });
-  }
-
-  postcodeFrom(text) {
-    this.setState({
-      fetchRequest: {
-        sender: {
-          postcode: text
-        }
-      }
-    });
-  }
-
-  postcodeTo(text) {
-    this.setState({
-      fetchRequest: {
-        recipient: {
-          postcode: text
-        }
-      }
-    });
-  }
-
-  weightBox(text) {
-    this.setState({
-      fetchRequest: {
-        boxes: [
-          {
-            weight: text
-          }
-        ]
-      }
-    });
-  }
-
-  lengthBox(text) {
-    this.setState({
-      fetchRequest: {
-        boxes: [
-          {
-            length: text
-          }
-        ]
-      }
-    });
-  }
-
-  widthBox(text) {
-    this.setState({
-      fetchRequest: {
-        boxes: [
-          {
-            width: text
-          }
-        ]
-      }
-    });
-  }
-
-  heightBox(text) {
-    this.setState({
-      fetchRequest: {
-        boxes: [
-          {
-            height: text
-          }
-        ]
-      }
-    });
-  }
-
-  componentWillMount() {
-    this.runFetch();
-  }
-
-  runFetch() {
-    fetch("parcelmonkey", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json; charset=utf-8"
-      },
-      body: JSON.stringify(this.state.fetchRequest)
+      })
     })
       .then(response => {
         return response.json();
@@ -164,7 +178,7 @@ class Form extends React.Component {
         if (body) {
           this.setState({ resultsArray: body });
           {
-            this.props.array(this.state.resultsArray);
+            this.props.array(body);
           }
         }
       })
