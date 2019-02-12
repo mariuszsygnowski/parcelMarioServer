@@ -1,9 +1,12 @@
 "use strict";
+
 require("dotenv").config();
 
 const rootCas = require("ssl-root-cas/latest").create();
 require("https").globalAgent.options.ca = rootCas;
 
+const https = require("https");
+const fs = require("file-system");
 const fetch = require("node-fetch");
 const superagent = require("superagent");
 const cheerio = require("cheerio");
@@ -30,27 +33,30 @@ app.get("/", function(req, res) {
 });
 
 app.get("/demot", (req, res) => {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
+
   // console.log(req.body);
   // res.json(req.body);
 
   const url = "https://api.parcelmonkey.co.uk/GetQuote";
 
   fetch(url, {
-    method: "POST",
+    method: "post",
     headers: {
       apiversion: 3.1,
       userid: 308283,
       token: "4j0bGNwJgm"
     },
+    strictSSL: false,
     body: JSON.stringify({
-      origin: "UK",
-      destination: "UK",
+      origin: "GB",
+      destination: "GB",
       boxes: [
         {
           length: 10,
           width: 10,
           height: 10,
-          weight: 5
+          weight: 10
         }
       ],
       goods_value: 0,
@@ -75,7 +81,7 @@ app.get("/demot", (req, res) => {
     })
   })
     .then(response => {
-      console.log("server res", response);
+      // console.log("server res", response);
 
       return response.json();
     })
@@ -292,3 +298,15 @@ app.get("/api/order/:orderId", function(req, res) {
 app.listen(port, function() {
   console.log(`Listening on port number ${port}`);
 });
+
+https
+  .createServer(
+    {
+      key: fs.readFileSync("server.key"),
+      cert: fs.readFileSync("server.cert")
+    },
+    app
+  )
+  .listen(8000, () => {
+    console.log("Listening...");
+  });
