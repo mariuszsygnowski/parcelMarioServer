@@ -9,6 +9,10 @@ By default, weight and dimensions are set to minimum values and postcode are in 
 
 - Run `npm install` after cloning to download all dependencies
 - Use `npm run go` to build application (in watch mode) and run server (with nodemon so will restart server on any changes)
+- Go to website https://www.parcelmonkey.co.uk/ and register sign up. Then go to https://www.parcelmonkey.co.uk/apiSettings.php to create User ID and API Key. Create in main folder of this repo file .env and use own values in PARCELMONKEY_USERID and PARCELMONKEY_TOKEN:
+  PARCELMONKEY_APIVERSION=3.1
+  PARCELMONKEY_USERID=123456
+  PARCELMONKEY_TOKEN="a1Bc9Wwld9"
 
 ## Inspiration
 
