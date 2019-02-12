@@ -2,8 +2,11 @@ $gridGap: 0.25rem;
 $smallerFonts: 0.75rem;
 $borderRadius: 0.3rem;
 $paddingInsideForm: 3rem;
-@import url('https://fonts.googleapis.com/css?family=Varela+Round');
+@import url("https://fonts.googleapis.com/css?family=Varela+Round");
 
+.padding {
+  margin-bottom: 50rem;
+}
 .form {
   background-color: #fff;
   padding: 0.5rem;
@@ -101,7 +104,8 @@ $paddingInsideForm: 3rem;
       grid-template-rows: 1fr min-content;
       grid-gap: $gridGap;
 
-      &__countryFrom, &__countryTo {
+      &__countryFrom,
+      &__countryTo {
         display: grid;
         grid-template-columns: 1fr;
         grid-template-rows: min-content min-content;
@@ -124,7 +128,6 @@ $paddingInsideForm: 3rem;
           grid-template-columns: 1fr;
           grid-gap: $gridGap;
 
-
           select {
             width: 100%;
             font-size: 0.9rem;
@@ -140,12 +143,11 @@ $paddingInsideForm: 3rem;
             -moz-appearance: none;
             appearance: none;
             /* Positions background arrow image */
-            background-image: url('https://www.freeiconspng.com/uploads/arrow-down-icon-png-24.png');
+            background-image: url("https://www.freeiconspng.com/uploads/arrow-down-icon-png-24.png");
             background-repeat: no-repeat;
             background-size: contain;
             background-position: right;
           }
-
         }
 
         div:last-child input {
@@ -168,20 +170,36 @@ $paddingInsideForm: 3rem;
         grid-template-columns: min-content min-content;
         align-items: center;
       }
-
     }
 
     &__button {
-      font-family: 'Varela Round', sans-serif;
+      font-family: "Varela Round", sans-serif;
       font-weight: 900;
       font-size: 1.4rem;
       margin-top: 1.5rem;
       margin-bottom: 1rem;
       padding: 0.5rem;
       background: #e9ff0d;
-      background-image: -webkit-gradient(linear, left top, left bottom, from(#e9ff0d), color-stop(50%, #c5d900), to(#e9ff0d));
-      background-image: -webkit-linear-gradient(top, #e9ff0d 0, #c5d900 50%, #e9ff0d 100%);
-      background-image: linear-gradient(to bottom, #e9ff0d 0, #c5d900 50%, #e9ff0d 100%);
+      background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        from(#e9ff0d),
+        color-stop(50%, #c5d900),
+        to(#e9ff0d)
+      );
+      background-image: -webkit-linear-gradient(
+        top,
+        #e9ff0d 0,
+        #c5d900 50%,
+        #e9ff0d 100%
+      );
+      background-image: linear-gradient(
+        to bottom,
+        #e9ff0d 0,
+        #c5d900 50%,
+        #e9ff0d 100%
+      );
       border-radius: $borderRadius;
     }
 
@@ -194,6 +212,5 @@ $paddingInsideForm: 3rem;
       color: #c3bdc6;
       cursor: pointer;
     }
-
   }
 }

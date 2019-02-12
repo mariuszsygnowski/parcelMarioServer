@@ -16,7 +16,8 @@ class Form extends React.Component {
       textWidthBox: 10,
       textHeightBox: 10,
       displayOffOn: "displayNone",
-      resultsArray: []
+      resultsArray: [],
+      padding: ""
     };
     // this.state = {
     //   fetchRequest: {
@@ -64,6 +65,7 @@ class Form extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.runFetch = this.runFetch.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.on = this.on.bind(this);
   }
 
   handleSubmit(event) {
@@ -186,9 +188,17 @@ class Form extends React.Component {
     });
   }
 
+  on(e) {
+    console.log(e);
+    window.scrollTo(0, -9999);
+    this.setState({
+      padding: "padding"
+    });
+  }
+
   render() {
     return (
-      <div className="form">
+      <div className={`form ${this.state.padding}`}>
         <form className="form__main" onSubmit={this.handleSubmit}>
           <div className="form__main__selections">
             <a
@@ -245,6 +255,7 @@ class Form extends React.Component {
               placeholder={"in kg..."}
               labelName="Parcel Weight"
               type="number"
+              onF={this.on}
             />
             <InputForm
               nameClass={this.state.displayOffOn}
