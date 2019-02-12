@@ -36,21 +36,26 @@
     //align-items: self-end;
     grid-template-columns: 11rem 1fr 6rem 10rem;
     grid-template-areas:
-      "photo  carier   priceNet   bookNow"
+      "photo  carrier   priceNet   bookNow"
+      "photo  carrier   priceNet   bookNow"
       "photo  serviceDescription priceGross bookNow"
       "photo  serviceName priceGross bookNow";
+
     &__image {
       grid-area: photo;
       width: 100%;
       height: auto;
     }
 
-    &__serviceDescription {
-      // display: none;
+    &__carrier {
+      align-self: center;
+    }
+    &__priceGross {
+      align-self: center;
     }
 
-    &__serviceName {
-      // display: none;
+    &__priceNet {
+      align-self: center;
     }
   }
 

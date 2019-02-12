@@ -10,13 +10,13 @@
 
   grid-template-areas:
     "photo bookNow"
-    "carier priceNet"
+    "carrier priceNet"
     "serviceDescription priceGross"
     ". ."
     "serviceName .";
 
   &__carrier {
-    grid-area: carier;
+    grid-area: carrier;
     font-size: 1.3rem;
     font-weight: 900;
   }
