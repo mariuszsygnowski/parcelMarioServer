@@ -34,8 +34,11 @@
     padding: 0.7rem;
     grid-gap: 0.5rem;
     //align-items: self-end;
-    grid-template-columns: 170px 1fr 100px 25%;
-    grid-template-areas: "photo  carier   priceNet   bookNow" "photo  service         priceGross bookNow";
+    grid-template-columns: 11rem 1fr 6rem 10rem;
+    grid-template-areas:
+      "photo  carier   priceNet   bookNow"
+      "photo  serviceDescription priceGross bookNow"
+      "photo  serviceName priceGross bookNow";
     &__image {
       grid-area: photo;
       width: 100%;
@@ -43,11 +46,11 @@
     }
 
     &__serviceDescription {
-      display: none;
+      // display: none;
     }
 
     &__serviceName {
-      display: none;
+      // display: none;
     }
   }
 
