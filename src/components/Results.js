@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import "../styles/components/results.scss";
 import SingleBox from "./SingleBox";
 
@@ -33,7 +33,7 @@ class Results extends React.Component {
         </div>
       );
     } else {
-      return <div />;
+      return <Fragment />;
     }
   }
 }
