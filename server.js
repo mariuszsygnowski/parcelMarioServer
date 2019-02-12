@@ -26,16 +26,12 @@ app.set("view engine", "hbs");
 
 const port = process.env.PORT || 8080;
 
-app.get("/", function(req, res) {
-  res.render("index");
-});
-
 app.post("/parcelmonkey", (req, res) => {
   //Parcelmonkey using an older standard of SSL that is no longer accepted (because it can be attacked easily)
   //so I need to disable SSL validation:
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 
-  console.log(req.body);
+  // console.log(req.body);
 
   const url = "https://api.parcelmonkey.co.uk/GetQuote";
 
@@ -71,195 +67,63 @@ app.post("/parcelmonkey", (req, res) => {
   //     return res.json(response);
   //   });
 
-  // fetch("https://api.parcelmonkey.co.uk/GetQuote:443", {
-  //   method: "post",
-  //   headers: {
-  //     apiversion: 3.1,
-  //     userid: 308283,
-  //     token: "4j0bGNwJgm"
-  //   },
-  //   strictSSL: false,
-  //   body: JSON.stringify({
-  //     origin: req.body.textCountryFrom,
-  //     destination: req.body.textCountryTo,
-  //     boxes: [
-  //       {
-  //         length: req.body.textLengthBox,
-  //         width: req.body.textWidthBox,
-  //         height: req.body.textHeightBox,
-  //         weight: req.body.textWeightBox
-  //       }
-  //     ],
-  //     goods_value: 0,
-  //     sender: {
-  //       name: "Rich",
-  //       phone: "01234567890",
-  //       address1: "Unit 21 Tollgate",
-  //       town: "purfleet",
-  //       county: "essex",
-  //       postcode: "RM19 1ZY"
-  //     },
-  //     recipient: {
-  //       name: "Nicola",
-  //       phone: "01234567890",
-  //       email: "nicola@example.com",
-  //       address1: "2 Baker's Yard",
-  //       address2: "",
-  //       town: "purfleet",
-  //       county: "essex",
-  //       postcode: "RM19 1ZY"
-  //     }
-  //   })
-  // })
-  //   .then(response => res.json(response))
-  //   .then(body => {
-  //     console.log(body);
-  //     res.json(body);
-
-  //     // if (body) {
-  //     //   // this.setState({ resultsArray: body });
-  //     //   //   {
-  //     //   //     this.props.array(this.state.resultsArray);
-  //     //   //   }
-  //     // }
-  //   })
-  //   .catch(error => {
-  //     res.json(error);
-  //     console.log("Server failed to return data: " + error);
-  //   });
+  //
 });
 
-app.get("/d/page/:page", function(req, res) {
-  const page = req.params.page;
-  let pageNumber = "";
-  if (page !== 1) {
-    pageNumber = `page/${page}`;
-  }
+// app.post("/api/order", (req, res) => {
+//   //this will be additional informations to order like name, phone number or how to enter to bulding
+//   const detailsOfOrder = req.body.details_of_order;
+//   const deliveryPrice = 1;
+//   console.log(req.body);
 
-  const url = `https://demotywatory.pl/${pageNumber}`;
+//   // 1. insert into "order" table
+//   db.one(
+//     "INSERT INTO orders (id, details_of_order, delivery_price) VALUES (DEFAULT, $1, $2) RETURNING id",
+//     [detailsOfOrder, deliveryPrice]
+//   )
+//     .then(result => {
+//       const orderId = result.id;
+//       const { items } = req.body;
+//       // 2. insert into "order_item" table for each item
+//       return Promise.all(
+//         items.map(item => {
+//           return db.none(
+//             "INSERT INTO order_details (order_id, item_id, quantity) VALUES ($1, $2, $3)",
+//             [orderId, item.item_id, item.quantity]
+//           );
+//         })
+//       ).then(() => orderId);
+//     })
+//     .then(orderId => res.json({ orderId: orderId }))
+//     .catch(error => res.json({ error: error.message }));
+// });
 
-  superagent
-    .get(url)
-    .query()
-    .end(function(err, response) {
-      if (err) {
-        res.json({
-          confirmation: "fail",
-          message: err
-        });
-        return;
-      }
-      $ = cheerio.load(response.text);
+// app.get("/api/menu", function(req, res) {
+//   db.any("SELECT * FROM menu")
+//     .then(data => {
+//       res.json(data);
+//     })
+//     .catch(() => {
+//       res.json({ error: error.message });
+//     });
+// });
 
-      let obj = [];
-      $(".demots .pic .demot_pic img").each(function(i, el) {
-        // this === el;
-        // return el.find($("img").attr("src"));
-        // obj[i] = $(this).text();
-        // console.log($(this).text());
-        // console.log(el);
-        obj[i] = $(this).attr("src");
-      });
-      console.log(obj);
+// app.get("/api/order/:orderId", function(req, res) {
+//   const orderId = req.params.orderId;
+//   db.any(
+//     "SELECT menu.id, menu.name, menu.type, order_details.quantity, orders.delivery_price, orders.details_of_order FROM menu, order_details, orders WHERE order_details.order_id = $1 AND order_details.item_id = menu.id AND orders.id = $1",
+//     [orderId]
+//   )
+//     .then(data => {
+//       res.json(data);
+//     })
+//     .catch(() => {
+//       res.json({ error: error.message });
+//     });
+// });
 
-      res.send(obj);
-    });
-  // var obj;
-  // let savedData = {};
-  // let i = 0;
-  // let da = [];
-
-  // osmosis
-  //   .get(url)
-  //   // .paginate("img[src]", 5)
-  //   .find(".demot_pic a")
-  //   // .follow("@src")
-  //   .set({ img: ["img@src"] })
-  //   .data(function(data) {
-  //     // console.log(data);
-  //     // savedData.push(data);
-  //     // res.json(JSON.stringify(savedData));
-  //     if (data.img === []) {
-  //       console.log("sdsa");
-  //     } else {
-  //       console.log(typeof data.img);
-
-  //       da[i] = data;
-  //       // console.log("no datat" + data);
-
-  //       i++;
-  //     }
-  //     savedData = Object.assign({}, savedData, data);
-  //   })
-  //   // .done(function() {
-  //   //   console.log("da");
-
-  //   //   fs.writeFile("data.json", JSON.stringify(savedData, null, 4), function(
-  //   //     err
-  //   //   ) {
-  //   //     if (err) console.error(err);
-  //   //     else console.log("Data Saved to data.json file");
-  //   //   });
-  //   // })
-  //   .log(console.log) // enable logging
-  //   .error(console.error); // in case there is an error found.
-  // console.log(da);
-  // res.json(da);
-
-  // res.send(aaa);
-  // });
-});
-
-app.post("/api/order", (req, res) => {
-  //this will be additional informations to order like name, phone number or how to enter to bulding
-  const detailsOfOrder = req.body.details_of_order;
-  const deliveryPrice = 1;
-  console.log(req.body);
-
-  // 1. insert into "order" table
-  db.one(
-    "INSERT INTO orders (id, details_of_order, delivery_price) VALUES (DEFAULT, $1, $2) RETURNING id",
-    [detailsOfOrder, deliveryPrice]
-  )
-    .then(result => {
-      const orderId = result.id;
-      const { items } = req.body;
-      // 2. insert into "order_item" table for each item
-      return Promise.all(
-        items.map(item => {
-          return db.none(
-            "INSERT INTO order_details (order_id, item_id, quantity) VALUES ($1, $2, $3)",
-            [orderId, item.item_id, item.quantity]
-          );
-        })
-      ).then(() => orderId);
-    })
-    .then(orderId => res.json({ orderId: orderId }))
-    .catch(error => res.json({ error: error.message }));
-});
-
-app.get("/api/menu", function(req, res) {
-  db.any("SELECT * FROM menu")
-    .then(data => {
-      res.json(data);
-    })
-    .catch(() => {
-      res.json({ error: error.message });
-    });
-});
-
-app.get("/api/order/:orderId", function(req, res) {
-  const orderId = req.params.orderId;
-  db.any(
-    "SELECT menu.id, menu.name, menu.type, order_details.quantity, orders.delivery_price, orders.details_of_order FROM menu, order_details, orders WHERE order_details.order_id = $1 AND order_details.item_id = menu.id AND orders.id = $1",
-    [orderId]
-  )
-    .then(data => {
-      res.json(data);
-    })
-    .catch(() => {
-      res.json({ error: error.message });
-    });
+app.get("/", function(req, res) {
+  res.render("index");
 });
 
 app.listen(port, function() {
