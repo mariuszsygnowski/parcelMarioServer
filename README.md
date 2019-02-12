@@ -16,8 +16,8 @@ My personal experience, where I discovered a problem which will be solved in the
 
 ## What technologies it uses?
 
-- html5 - BEM class names
-- CSS3 (scss)
+- HTML5 - BEM class names
+- CSS3 (SCSS)
 - Java Script ES6
 - React
 - Node.js
