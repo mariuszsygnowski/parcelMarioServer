@@ -1,63 +1,66 @@
 import React from 'react';
-import { log } from 'util';
+import cx from 'classnames';
+import '../styles/components/container.scss';
+import '../styles/components/header.scss';
 
 class Header extends React.Component {
     constructor() {
         super();
-        this.state = {
-            numbersItemsInBasket: 0
-        }
-        // this.handleClick = this.handleClick.bind(this);
-        // this.fetchCurrentBasket = this.fetchCurrentBasket.bind(this);
+        this.state = {isOpen: false};
+        this.handleChange = this.handleChange.bind(this);
     }
 
-    // handleClick () {        
-    //     fetch('/order', {
-    //         method: 'POST',
-    //         headers: {
-    //             "Content-Type": "application/json; charset=utf-8",
-    //         },
-    //         body: JSON.stringify(this.props.currentBasket)
-    //     })
-    //     .then((response) => {
-    //         return response.json();
-    //     })
-    //     .then((body) => {
-    //         // console.log(body);
-    //     });
-    //     this.props.clearBasket();
-      
-    // }
+    handleChange() {
+        this.setState({
+            isOpen: !this.state.isOpen
+        });
+    }
 
-    // fetchCurrentBasket() {
-    //     fetch('/basket')
-    //       .then((response) => {
-    //         return response.json();
-    //       })
-    //       .then((body) => {
-    //           console.log(body);
-    //       });
-    //   }
-    
-    
-    render() {        
-        // console.log( this.props.currentBasket);
-        let quantity = 0;
-        let totalprice = 0;
-        this.props.currentBasket.forEach(element => {
-            // console.log(element);
-            totalprice += element.price * element.quantity;
-            quantity += element.quantity;
-        });        
-        
+    render() {
+        const navListClasses = cx('navigation__main__list', {
+            'navigation__main__list--open': this.state.isOpen
+        });
+
         return (
-            <nav className='header container'>
-                <h1 className='header__title'>MARIO BURGERS</h1>
-                <span className='header__basketQuantity'>£{this.props.totalprice} ({this.props.quantity}) + {this.props.deliveryCharge} </span>
-                {/* <button onClick={this.handleClick}>Order!</button>
-                <p onClick={this.fetchCurrentBasket} >fetch</p> */}
+            <nav className="navigation ">
+                <div className="navigation__main container">
+                    <h3>parcel <span></span> mario</h3>
+                    <div className="navigation__main__toggle" >
+                        <div className='tgg'></div>
+                        <div className='tgg'></div>
+                        <div className='tgg'></div>
+                        <p>MENU</p>
+                    </div>
+                    <ul className={navListClasses}>
+                        <li>
+                            <a className="sendAParcel" href="#1">Send a Parcel</a>
+                        </li>
+                        <li>
+                            <a className="" href="#2">Tracking</a>
+                        </li>
+                        <li>
+                            <a className="" href="#3">Service</a>
+                        </li>
+                        <li>
+                            <a className="" href="#4">About Us</a>
+                        </li>
+                        <li>
+                            <a className="" href="#5">Contact Us</a>
+                        </li>
+                        <li>
+                            <a className="" href="#6">Items in cart: 0</a>
+                        </li>
+                        <li>
+                            <a className="" href="#7">Sing up</a>
+                        </li>
+                        <li>
+                            <a className="" href="#8">Log in</a>
+                        </li>
+                    </ul>
+
+                </div>
             </nav>
-        )
+        );
     }
 }
 

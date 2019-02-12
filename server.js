@@ -5,8 +5,6 @@ require("dotenv").config();
 const rootCas = require("ssl-root-cas/latest").create();
 require("https").globalAgent.options.ca = rootCas;
 
-const https = require("https");
-const fs = require("file-system");
 const fetch = require("node-fetch");
 const superagent = require("superagent");
 const cheerio = require("cheerio");
@@ -32,62 +30,31 @@ app.get("/", function(req, res) {
   res.render("index");
 });
 
-app.get("/demot", (req, res) => {
+app.post("/parcelmonkey", (req, res) => {
+  //Parcelmonkey using an older standard of SSL that is no longer accepted (because it can be attacked easily)
+  //so I need to disable SSL validation:
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 
-  // console.log(req.body);
-  // res.json(req.body);
+  console.log(req.body);
 
   const url = "https://api.parcelmonkey.co.uk/GetQuote";
 
   fetch(url, {
     method: "post",
     headers: {
-      apiversion: 3.1,
-      userid: 308283,
-      token: "4j0bGNwJgm"
+      apiversion: process.env.PARCELMONKEY_APIVERSION,
+      userid: process.env.PARCELMONKEY_USERID,
+      token: process.env.PARCELMONKEY_TOKEN
     },
-    strictSSL: false,
-    body: JSON.stringify({
-      origin: "GB",
-      destination: "GB",
-      boxes: [
-        {
-          length: 10,
-          width: 10,
-          height: 10,
-          weight: 10
-        }
-      ],
-      goods_value: 0,
-      sender: {
-        name: "Rich",
-        phone: "01234567890",
-        address1: "Unit 21 Tollgate",
-        town: "purfleet",
-        county: "essex",
-        postcode: "RM19 1ZY"
-      },
-      recipient: {
-        name: "Nicola",
-        phone: "01234567890",
-        email: "nicola@example.com",
-        address1: "2 Baker's Yard",
-        address2: "",
-        town: "purfleet",
-        county: "essex",
-        postcode: "RM19 1ZY"
-      }
-    })
+    body: JSON.stringify(req.body)
   })
-    .then(response => {
-      // console.log("server res", response);
-
-      return response.json();
-    })
+    .then(response => response.json())
     .then(body => {
-      // console.log(body);
-      res.json(body);
+      if (body) {
+        res.json(body);
+      } else {
+        res.json({ error: "no body after respond" });
+      }
     })
     .catch(error => {
       res.json(error);
@@ -298,15 +265,3 @@ app.get("/api/order/:orderId", function(req, res) {
 app.listen(port, function() {
   console.log(`Listening on port number ${port}`);
 });
-
-https
-  .createServer(
-    {
-      key: fs.readFileSync("server.key"),
-      cert: fs.readFileSync("server.cert")
-    },
-    app
-  )
-  .listen(8000, () => {
-    console.log("Listening...");
-  });

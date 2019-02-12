@@ -1,28 +1,43 @@
 import React from "react";
-// import InputForm from './InputForm';
-// import InputCountry from './InputCountry';
-// import '../styles/components/inputs.scss';
+import InputForm from "./InputForm";
+import InputCountry from "./InputCountry";
+import "../styles/components/inputs.scss";
 
 class Form extends React.Component {
   constructor() {
     super();
     this.state = {
-      textCountryFrom: "gb",
-      textCountryTo: "gb",
-      textPostcodeFrom: "EC1R 3DD",
-      textPostcodeTo: "EC1R 3DD",
-      textWeightBox: 1,
-      textLengthBox: 10,
-      textWidthBox: 10,
-      textHeightBox: 10,
-      textCountryFromErrorMessage: "",
-      textCountryToErrorMessage: "",
-      textPostcodeFromErrorMessage: "",
-      textPostcodeToErrorMessage: "",
-      textWeightBoxErrorMessage: "",
-      textLengthBoxErrorMessage: "",
-      textWidthBoxErrorMessage: "",
-      textHeightBoxErrorMessage: "",
+      fetchRequest: {
+        origin: "GB",
+        destination: "GB",
+        boxes: [
+          {
+            length: 10,
+            width: 10,
+            height: 10,
+            weight: 5
+          }
+        ],
+        goods_value: 0,
+        sender: {
+          name: "Rich",
+          phone: "01234567890",
+          address1: "Unit 21 Tollgate",
+          town: "purfleet",
+          county: "essex",
+          postcode: "RM19 1ZY"
+        },
+        recipient: {
+          name: "Nicola",
+          phone: "01234567890",
+          email: "nicola@example.com",
+          address1: "2 Baker's Yard",
+          address2: "",
+          town: "purfleet",
+          county: "essex",
+          postcode: "RM19 1ZY"
+        }
+      },
       displayOffOn: "displayNone",
       resultsArray: []
     };
@@ -46,49 +61,85 @@ class Form extends React.Component {
 
   countryFrom(text) {
     this.setState({
-      textCountryFrom: text
+      fetchRequest: {
+        origin: text
+      }
     });
   }
 
   countryTo(text) {
     this.setState({
-      textCountryTo: text
+      fetchRequest: {
+        destination: text
+      }
     });
   }
 
   postcodeFrom(text) {
     this.setState({
-      textPostcodeFrom: text
+      fetchRequest: {
+        sender: {
+          postcode: text
+        }
+      }
     });
   }
 
   postcodeTo(text) {
     this.setState({
-      textPostcodeTo: text
+      fetchRequest: {
+        recipient: {
+          postcode: text
+        }
+      }
     });
   }
 
   weightBox(text) {
     this.setState({
-      textWeightBox: text
+      fetchRequest: {
+        boxes: [
+          {
+            weight: text
+          }
+        ]
+      }
     });
   }
 
   lengthBox(text) {
     this.setState({
-      textLengthBox: text
+      fetchRequest: {
+        boxes: [
+          {
+            length: text
+          }
+        ]
+      }
     });
   }
 
   widthBox(text) {
     this.setState({
-      textWidthBox: text
+      fetchRequest: {
+        boxes: [
+          {
+            width: text
+          }
+        ]
+      }
     });
   }
 
   heightBox(text) {
     this.setState({
-      textHeightBox: text
+      fetchRequest: {
+        boxes: [
+          {
+            height: text
+          }
+        ]
+      }
     });
   }
 
@@ -97,44 +148,12 @@ class Form extends React.Component {
   }
 
   runFetch() {
-    fetch("https://api.parcelmonkey.co.uk/GetQuote", {
+    fetch("parcelmonkey", {
       method: "POST",
       headers: {
-        apiversion: 3.1,
-        userid: 308283,
-        token: "4j0bGNwJgm"
+        "Content-Type": "application/json; charset=utf-8"
       },
-      body: JSON.stringify({
-        origin: this.state.textCountryFrom,
-        destination: this.state.textCountryTo,
-        boxes: [
-          {
-            length: this.state.textLengthBox,
-            width: this.state.textWidthBox,
-            height: this.state.textHeightBox,
-            weight: this.state.textWeightBox
-          }
-        ],
-        goods_value: 0,
-        sender: {
-          name: "Rich",
-          phone: "01234567890",
-          address1: "Unit 21 Tollgate",
-          town: "purfleet",
-          county: "essex",
-          postcode: "RM19 1ZY"
-        },
-        recipient: {
-          name: "Nicola",
-          phone: "01234567890",
-          email: "nicola@example.com",
-          address1: "2 Baker's Yard",
-          address2: "",
-          town: "purfleet",
-          county: "essex",
-          postcode: "RM19 1ZY"
-        }
-      })
+      body: JSON.stringify(this.state.fetchRequest)
     })
       .then(response => {
         return response.json();
@@ -144,9 +163,9 @@ class Form extends React.Component {
 
         if (body) {
           this.setState({ resultsArray: body });
-          //   {
-          //     this.props.array(this.state.resultsArray);
-          //   }
+          {
+            this.props.array(this.state.resultsArray);
+          }
         }
       })
       .catch(error => {
@@ -164,7 +183,7 @@ class Form extends React.Component {
   render() {
     return (
       <div className="form">
-        {/* <form className="form__main" onSubmit={this.handleSubmit}>
+        <form className="form__main" onSubmit={this.handleSubmit}>
           <div className="form__main__selections">
             <a
               href="#"
@@ -249,7 +268,7 @@ class Form extends React.Component {
           >
             <span>Parcel larger than 1 m?</span>
           </span>
-        </form> */}
+        </form>
       </div>
     );
   }

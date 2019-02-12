@@ -1,0 +1,120 @@
+@import "reset";
+@import 'container.scss';
+@import 'header.scss';
+@import 'inputs';
+@import 'intro';
+@import 'results';
+@import 'singleResultBox';
+@import url('https://fonts.googleapis.com/css?family=Varela+Round');
+
+.app {
+  font-family: 'Varela Round', sans-serif;
+  margin: 0 auto;
+  width: 100vw;
+  background-color: white;
+  min-width: 216px;
+}
+
+@media (min-width: 300px) {
+  html {
+    font-size: 15.5px;
+  }
+
+}@media (min-width: 400px) {
+  html {
+    font-size: 17px;
+  }
+}
+
+@media (min-width: 768px) {
+  .singleResultBox {
+    display: grid;
+    font-size: 18px;
+    background-color: #f7f7f7;
+    padding: 0.7rem;
+    grid-gap: 0.5rem;
+    //align-items: self-end;
+    grid-template-columns: 170px 1fr 100px 25%;
+    grid-template-areas: 'photo  carier   priceNet   bookNow' 'photo  service         priceGross bookNow';
+    &__image {
+      grid-area: photo;
+      width: 100%;
+      height: 100%;
+    }
+
+    &__serviceDescription {
+      display: none;
+    }
+
+    &__serviceName {
+      display: none;
+    }
+  }
+
+  .app {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-areas: 'navigation navigation' 'intro form' 'results results';
+    .navigation {
+      grid-area: navigation;
+    }
+    .intro {
+      grid-area: intro;
+    }
+    .form {
+      grid-area: form;
+    }
+    .results {
+      grid-area: results;
+    }
+  }
+}
+
+@media (min-width: 800px) {
+  .navigation__main__list {
+    display: grid;
+    grid-template-columns: repeat(8, auto);
+    grid-template-rows: 1fr;
+
+    li a{
+      font-family: 'Varela Round', sans-serif;
+      color: white;
+      font-size: 0.8rem;
+      font-weight: 100;
+      width: auto;
+      white-space: nowrap;
+      text-decoration: none;
+      font-variant: full-width;
+      margin: auto 0.5rem;
+    }
+
+    li:hover {
+      background-color: rgba(201, 76, 76, 0.3);
+    }
+
+    .sendAParcel {
+      color: yellow;
+    }
+  }
+  .navigation__main__toggle {
+    display: none;
+  }
+
+  .app {
+    grid-template-columns: 50% 50%;
+  }
+}
+
+@media (min-width: 1224px) {
+
+  .app {
+    display: grid;
+    grid-template-columns: 20rem 1fr;
+    grid-template-areas:
+            'navigation navigation'
+            'intro intro'
+            'form results'
+  ;
+  }
+
+}
