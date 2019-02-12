@@ -82,7 +82,12 @@
   .navigation__main__list {
     display: grid;
     grid-template-columns: repeat(8, auto);
-    grid-template-rows: 1fr;
+    grid-template-rows: 2rem;
+
+    li {
+      display: grid;
+      grid-template-rows: 2rem;
+    }
 
     li a {
       font-family: "Varela Round", sans-serif;
@@ -94,6 +99,7 @@
       text-decoration: none;
       font-variant: full-width;
       margin: auto 0.5rem;
+      align-self: center;
     }
 
     li:hover {

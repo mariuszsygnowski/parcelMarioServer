@@ -1,4 +1,4 @@
-@import '../base/colours';
+@import "../base/colours";
 
 .navigation {
   background-color: #3a0256;
@@ -6,7 +6,7 @@
 
   &__main {
     display: grid;
-    grid-template-columns: 1fr min-content ;
+    grid-template-columns: 1fr min-content;
     color: white;
 
     h3 {
@@ -20,6 +20,7 @@
         background-image: url("https://mbtskoudsalg.com/images/mario-icon-png-3.png");
         background-repeat: no-repeat;
         background-size: contain;
+        background-position: center;
         height: 100%;
         width: 1.5rem;
       }
@@ -30,11 +31,11 @@
       border: 1px solid $border-color;
       padding: 10px;
       margin: 5px;
-      background-color: #FFF
+      background-color: #fff;
     }
 
     &__link:hover {
-      background-color: #DDD;
+      background-color: #ddd;
     }
 
     &__list {
@@ -62,12 +63,7 @@
       }
       p {
         font-size: 0.5rem;
-
       }
-
     }
-
   }
-
 }
-
