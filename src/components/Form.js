@@ -96,27 +96,42 @@ class Form extends React.Component {
   }
 
   weightBox(text) {
-    this.setState({
-      textWeightBox: text
-    });
+    if (isNaN(text)) {
+    } else {
+      this.setState({
+        textWeightBox: text
+      });
+    }
   }
 
   lengthBox(text) {
-    this.setState({
-      textLengthBox: text
-    });
+    if (isNaN(text)) {
+      alert("this is not a number");
+    } else {
+      this.setState({
+        textLengthBox: text
+      });
+    }
   }
 
   widthBox(text) {
-    this.setState({
-      textWidthBox: text
-    });
+    if (isNaN(text)) {
+      alert("this is not a number");
+    } else {
+      this.setState({
+        textWidthBox: text
+      });
+    }
   }
 
   heightBox(text) {
-    this.setState({
-      textHeightBox: text
-    });
+    if (isNaN(text)) {
+      alert("this is not a number");
+    } else {
+      this.setState({
+        textHeightBox: text
+      });
+    }
   }
 
   componentWillMount() {
@@ -218,6 +233,7 @@ class Form extends React.Component {
                 text={this.state.postcodeFrom}
                 placeholder={"Postcode / Zip. Default is EC1R 3DD"}
                 labelName=""
+                type="text"
               />
             </div>
             <div className="form__main__fromAndToCountry__countryTo">
@@ -231,6 +247,7 @@ class Form extends React.Component {
                 text={this.state.postcodeTo}
                 placeholder={"Postcode / Zip. Default is EC1R 3DD"}
                 labelName=""
+                type="text"
               />
             </div>
           </div>
@@ -242,6 +259,7 @@ class Form extends React.Component {
               text={this.state.weightBox}
               placeholder={"in kg..."}
               labelName="Parcel Weight"
+              type="number"
             />
             <InputForm
               nameClass={this.state.displayOffOn}
@@ -249,6 +267,7 @@ class Form extends React.Component {
               text={this.state.lengthBox}
               placeholder={"default length is 10cm"}
               labelName="Length"
+              type="number"
             />
             <InputForm
               nameClass={this.state.displayOffOn}
@@ -256,6 +275,7 @@ class Form extends React.Component {
               text={this.state.widthBox}
               placeholder={"default width is 10cm"}
               labelName="Width"
+              type="number"
             />
             <InputForm
               nameClass={this.state.displayOffOn}
@@ -263,6 +283,7 @@ class Form extends React.Component {
               text={this.state.weightBox}
               placeholder={"default height is 10cm"}
               labelName="Height"
+              type="number"
             />
           </div>
           <button className="form__main__button container">
