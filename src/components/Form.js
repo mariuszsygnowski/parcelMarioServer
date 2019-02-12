@@ -15,14 +15,6 @@ class Form extends React.Component {
       textLengthBox: 10,
       textWidthBox: 10,
       textHeightBox: 10,
-      textCountryFromErrorMessage: "",
-      textCountryToErrorMessage: "",
-      textPostcodeFromErrorMessage: "",
-      textPostcodeToErrorMessage: "",
-      textWeightBoxErrorMessage: "",
-      textLengthBoxErrorMessage: "",
-      textWidthBoxErrorMessage: "",
-      textHeightBoxErrorMessage: "",
       displayOffOn: "displayNone",
       resultsArray: []
     };

@@ -2,18 +2,17 @@
   display: grid;
   background-color: #f7f7f7;
   padding: 0.7rem;
-  grid-auto-columns: 10fr 6fr;
   grid-gap: 0.5rem;
+  grid-template-columns: 10fr 6fr;
 
   //grid-auto-rows: minmax(3rem, 6rem) minmax(3rem, 6rem) minmax(3rem, 6rem) minmax(3rem, 6rem) minmax(3rem, 6rem);
 
   grid-template-areas:
-          'photo bookNow'
-          'carier priceNet'
-          'serviceDescription priceGross'
-          'service .'
-          'serviceName .'
-          ;
+    "photo bookNow"
+    "carier priceNet"
+    "serviceDescription priceGross"
+    "service ."
+    "serviceName .";
 
   &__carrier {
     grid-area: carier;
@@ -27,7 +26,6 @@
     align-items: self-end;
     font-size: 0.6rem;
   }
-
 
   &__serviceDescription {
     grid-area: serviceDescription;
@@ -66,9 +64,8 @@
     border-radius: 0.3rem;
     text-decoration: none;
 
-
     &__button {
-      font-family: 'Varela Round', sans-serif;
+      font-family: "Varela Round", sans-serif;
       font-weight: 900;
       background-color: #863888;
       border: #863888;
@@ -81,6 +78,4 @@
     grid-area: photo;
     height: 4rem;
   }
-
-
 }

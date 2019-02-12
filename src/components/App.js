@@ -11,7 +11,8 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      resultsArray: []
+      resultsArray: [],
+      isClicked: false
     };
 
     this.handleResults = this.handleResults.bind(this);
@@ -19,7 +20,8 @@ class App extends React.Component {
 
   handleResults(array) {
     this.setState({
-      resultsArray: array
+      resultsArray: array,
+      isClicked: true
     });
   }
 
@@ -29,7 +31,10 @@ class App extends React.Component {
         <Header />
         <Intro />
         <Form array={this.handleResults} />
-        <Results arrayOfResults={this.state.resultsArray} />
+        <Results
+          arrayOfResults={this.state.resultsArray}
+          isClicked={this.state.isClicked}
+        />
         {/*<Footer />*/}
       </div>
     );
