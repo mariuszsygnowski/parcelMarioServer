@@ -3,7 +3,8 @@
   background-color: #f7f7f7;
   padding: 0.7rem;
   grid-gap: 0.5rem;
-  grid-template-columns: 10fr 6fr;
+  grid-template-columns: 60% 40%;
+  // grid-auto-rows: 1rf;
 
   //grid-auto-rows: minmax(3rem, 6rem) minmax(3rem, 6rem) minmax(3rem, 6rem) minmax(3rem, 6rem) minmax(3rem, 6rem);
 
@@ -11,7 +12,7 @@
     "photo bookNow"
     "carier priceNet"
     "serviceDescription priceGross"
-    "service ."
+    ". ."
     "serviceName .";
 
   &__carrier {
@@ -31,9 +32,11 @@
     grid-area: serviceDescription;
     font-size: 0.7rem;
     font-weight: 900;
+    padding-bottom: -0.3rem;
   }
 
   &__service {
+    display: none;
     grid-area: service;
     font-size: 0.7rem;
     font-weight: 900;
@@ -75,7 +78,10 @@
   }
 
   &__image {
+    display: grid;
+    align-self: center;
     grid-area: photo;
     height: auto;
+    width: 30%;
   }
 }
