@@ -17,6 +17,7 @@ class InputForm extends React.Component {
         <label>
           {this.props.labelName}
           <input
+            min="0"
             type={this.props.type}
             value={this.props.text}
             onChange={this.handleChange}

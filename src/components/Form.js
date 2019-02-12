@@ -96,42 +96,27 @@ class Form extends React.Component {
   }
 
   weightBox(text) {
-    if (isNaN(text)) {
-    } else {
-      this.setState({
-        textWeightBox: text
-      });
-    }
+    this.setState({
+      textWeightBox: text
+    });
   }
 
   lengthBox(text) {
-    if (isNaN(text)) {
-      alert("this is not a number");
-    } else {
-      this.setState({
-        textLengthBox: text
-      });
-    }
+    this.setState({
+      textLengthBox: text
+    });
   }
 
   widthBox(text) {
-    if (isNaN(text)) {
-      alert("this is not a number");
-    } else {
-      this.setState({
-        textWidthBox: text
-      });
-    }
+    this.setState({
+      textWidthBox: text
+    });
   }
 
   heightBox(text) {
-    if (isNaN(text)) {
-      alert("this is not a number");
-    } else {
-      this.setState({
-        textHeightBox: text
-      });
-    }
+    this.setState({
+      textHeightBox: text
+    });
   }
 
   componentWillMount() {
