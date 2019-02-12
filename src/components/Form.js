@@ -189,15 +189,15 @@ class Form extends React.Component {
   }
 
   on(e) {
-    console.log(e);
-    this.setState(
-      {
-        padding: "padding"
-      },
-      () => {
-        window.scrollTo(0, 300);
-      }
-    );
+    // console.log(window.height());
+    // this.setState(
+    //   {
+    //     padding: "padding"
+    //   },
+    //   () => {
+    //     window.scrollTo(0, 400);
+    //   }
+    // );
   }
 
   render() {
