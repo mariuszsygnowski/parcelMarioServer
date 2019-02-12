@@ -1,11 +1,7 @@
-// "use strict";
+"use strict";
 require("dotenv").config();
 
-("use strict");
-var rootCas = require("ssl-root-cas/latest").create();
-
-// default for all https requests
-// (whether using https directly, request, or another module)
+const rootCas = require("ssl-root-cas/latest").create();
 require("https").globalAgent.options.ca = rootCas;
 
 const fetch = require("node-fetch");
@@ -33,18 +29,132 @@ app.get("/", function(req, res) {
   res.render("index");
 });
 
-/**
- * example of object to be passed into app.post("/api/order"
-{
-  "items": [
-    { "item_id": 1, "quantity": 10 },
-    { "item_id": 2, "quantity": 3},
-    { "item_id": 3, "quantity": 2},
-    { "item_id": 9, "quantity": 41}
-  ],
-  "details_of_order": "Mario, 012345678, please kock 3 times"
-}
- */
+app.get("/demot", (req, res) => {
+  // console.log(req.body);
+  // res.json(req.body);
+
+  const url = "https://api.parcelmonkey.co.uk/GetQuote";
+
+  fetch(url, {
+    method: "POST",
+    headers: {
+      apiversion: 3.1,
+      userid: 308283,
+      token: "4j0bGNwJgm"
+    },
+    body: JSON.stringify({
+      origin: "UK",
+      destination: "UK",
+      boxes: [
+        {
+          length: 10,
+          width: 10,
+          height: 10,
+          weight: 5
+        }
+      ],
+      goods_value: 0,
+      sender: {
+        name: "Rich",
+        phone: "01234567890",
+        address1: "Unit 21 Tollgate",
+        town: "purfleet",
+        county: "essex",
+        postcode: "RM19 1ZY"
+      },
+      recipient: {
+        name: "Nicola",
+        phone: "01234567890",
+        email: "nicola@example.com",
+        address1: "2 Baker's Yard",
+        address2: "",
+        town: "purfleet",
+        county: "essex",
+        postcode: "RM19 1ZY"
+      }
+    })
+  })
+    .then(response => {
+      console.log("server res", response);
+
+      return response.json();
+    })
+    .then(body => {
+      // console.log(body);
+      res.json(body);
+    })
+    .catch(error => {
+      res.json(error);
+      console.log("Server failed to return data: " + error);
+    });
+
+  // superagent
+  //   .get(url)
+  //   .query()
+  //   .end(function(err, response) {
+  //     if (err) {
+  //       res.json(err);
+  //     }
+  //     return res.json(response);
+  //   });
+
+  // fetch("https://api.parcelmonkey.co.uk/GetQuote:443", {
+  //   method: "post",
+  //   headers: {
+  //     apiversion: 3.1,
+  //     userid: 308283,
+  //     token: "4j0bGNwJgm"
+  //   },
+  //   strictSSL: false,
+  //   body: JSON.stringify({
+  //     origin: req.body.textCountryFrom,
+  //     destination: req.body.textCountryTo,
+  //     boxes: [
+  //       {
+  //         length: req.body.textLengthBox,
+  //         width: req.body.textWidthBox,
+  //         height: req.body.textHeightBox,
+  //         weight: req.body.textWeightBox
+  //       }
+  //     ],
+  //     goods_value: 0,
+  //     sender: {
+  //       name: "Rich",
+  //       phone: "01234567890",
+  //       address1: "Unit 21 Tollgate",
+  //       town: "purfleet",
+  //       county: "essex",
+  //       postcode: "RM19 1ZY"
+  //     },
+  //     recipient: {
+  //       name: "Nicola",
+  //       phone: "01234567890",
+  //       email: "nicola@example.com",
+  //       address1: "2 Baker's Yard",
+  //       address2: "",
+  //       town: "purfleet",
+  //       county: "essex",
+  //       postcode: "RM19 1ZY"
+  //     }
+  //   })
+  // })
+  //   .then(response => res.json(response))
+  //   .then(body => {
+  //     console.log(body);
+  //     res.json(body);
+
+  //     // if (body) {
+  //     //   // this.setState({ resultsArray: body });
+  //     //   //   {
+  //     //   //     this.props.array(this.state.resultsArray);
+  //     //   //   }
+  //     // }
+  //   })
+  //   .catch(error => {
+  //     res.json(error);
+  //     console.log("Server failed to return data: " + error);
+  //   });
+});
 
 app.get("/d/page/:page", function(req, res) {
   const page = req.params.page;
@@ -125,15 +235,6 @@ app.get("/d/page/:page", function(req, res) {
 
   // res.send(aaa);
   // });
-});
-
-app.post("/demot", (req, res) => {
-  // res.json(req.body);
-
-  fetch("https://api.parcelmonkey.co.uk/GetQuote", {}).catch(error => {
-    console.log("Server failed to return data: " + error);
-    res.json(error);
-  });
 });
 
 app.post("/api/order", (req, res) => {

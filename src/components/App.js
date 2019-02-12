@@ -41,31 +41,15 @@ class App extends React.Component {
 
   runFetch() {
     fetch(`/demot`, {
-      method: "POST",
+      method: "GET",
       headers: {
         "Content-Type": "application/json; charset=utf-8"
-      },
-      body: JSON.stringify(this.state.fetchRequest)
+      }
     })
       .then(response => response.json())
-      .then(result => console.log(result));
-    // fetch("/demot", {
-    //   method: "GET",
-    //   headers: {
-    //     "Content-Type": "application/json; charset=utf-8"
-    //   },
-    //   body: JSON.stringify(this.state.fetchRequest)
-    // })
-    //   .then(response => {
-    //     // console.log(response);
-
-    //     return response.json();
-    //   })
-    //   .then(body => {
-    //     console.log(body);
-    //     // this.setState({
-    //     //   menuItems: body
-    //   });
+      .then(result => {
+        console.log(result);
+      });
   }
 
   basketItem(item, quantity) {
