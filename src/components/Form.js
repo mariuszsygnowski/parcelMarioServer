@@ -190,7 +190,7 @@ class Form extends React.Component {
 
   on(e) {
     console.log(e);
-    window.scrollTo(0, -9999);
+    window.scrollTo(0, 300);
     this.setState({
       padding: "padding"
     });
