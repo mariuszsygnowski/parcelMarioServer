@@ -33,7 +33,7 @@ class Results extends React.Component {
         </div>
       );
     } else {
-      return <div className="padding" />;
+      return <div className="margin-bottom" />;
     }
   }
 }
