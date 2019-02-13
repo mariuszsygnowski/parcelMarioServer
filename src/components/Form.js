@@ -17,7 +17,8 @@ class Form extends React.Component {
       textHeightBox: 10,
       displayOffOn: "displayNone",
       resultsArray: [],
-      padding: ""
+      padding: "",
+      invalidInput: ""
     };
     // this.state = {
     //   fetchRequest: {
@@ -98,9 +99,14 @@ class Form extends React.Component {
   }
 
   weightBox(text) {
-    this.setState({
-      textWeightBox: text
-    });
+    if (isNaN(text)) {
+      console.log("is a not number");
+    } else {
+      this.setState({
+        textWeightBox: text
+      });
+      console.log("is number");
+    }
   }
 
   lengthBox(text) {
@@ -242,6 +248,7 @@ class Form extends React.Component {
               />
               <InputForm
                 nameClass={this.state.displayOffOn}
+                nameClass={this.state.invalidInput}
                 receiveText={this.postcodeTo}
                 text={this.state.postcodeTo}
                 placeholder={"Postcode / Zip. Default is EC1R 3DD"}
