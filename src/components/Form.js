@@ -4,8 +4,8 @@ import InputCountry from "./InputCountry";
 import "../styles/components/inputs.scss";
 
 class Form extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       textCountryFrom: "gb",
       textCountryTo: "gb",
@@ -20,41 +20,7 @@ class Form extends React.Component {
       padding: "",
       invalidInput: ""
     };
-    // this.state = {
-    //   fetchRequest: {
-    //     origin: "GB",
-    //     destination: "GB",
-    //     boxes: [
-    //       {
-    //         length: 10,
-    //         width: 10,
-    //         height: 10,
-    //         weight: 5
-    //       }
-    //     ],
-    //     goods_value: 0,
-    //     sender: {
-    //       name: "Rich",
-    //       phone: "01234567890",
-    //       address1: "Unit 21 Tollgate",
-    //       town: "purfleet",
-    //       county: "essex",
-    //       postcode: "RM19 1ZY"
-    //     },
-    //     recipient: {
-    //       name: "Nicola",
-    //       phone: "01234567890",
-    //       email: "nicola@example.com",
-    //       address1: "2 Baker's Yard",
-    //       address2: "",
-    //       town: "purfleet",
-    //       county: "essex",
-    //       postcode: "RM19 1ZY"
-    //     }
-    //   },
-    //   displayOffOn: "displayNone",
-    //   resultsArray: []
-    // };
+
     this.countryFrom = this.countryFrom.bind(this);
     this.countryTo = this.countryTo.bind(this);
     this.postcodeFrom = this.postcodeFrom.bind(this);
@@ -66,7 +32,6 @@ class Form extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.runFetch = this.runFetch.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.on = this.on.bind(this);
   }
 
   handleSubmit(event) {
@@ -101,9 +66,13 @@ class Form extends React.Component {
   weightBox(text) {
     if (isNaN(text)) {
       console.log("is a not number");
+      this.setState({
+        invalidInput: "invalidInput"
+      });
     } else {
       this.setState({
-        textWeightBox: text
+        textWeightBox: text,
+        invalidInput: ""
       });
       console.log("is number");
     }
@@ -169,17 +138,11 @@ class Form extends React.Component {
         }
       })
     })
-      .then(response => {
-        return response.json();
-      })
+      .then(response => response.json())
       .then(body => {
-        console.log(body);
-
         if (body) {
           this.setState({ resultsArray: body });
-          {
-            this.props.array(body);
-          }
+          this.props.array(body);
         }
       })
       .catch(error => {
@@ -192,18 +155,6 @@ class Form extends React.Component {
     this.setState({
       displayOffOn: "displayBlock"
     });
-  }
-
-  on(e) {
-    // console.log(window.height());
-    // this.setState(
-    //   {
-    //     padding: "padding"
-    //   },
-    //   () => {
-    //     window.scrollTo(0, 400);
-    //   }
-    // );
   }
 
   render() {

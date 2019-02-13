@@ -8,8 +8,8 @@ import "../styles/components/app.scss";
 // import Footer from './Footer';
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       resultsArray: [],
       isClicked: false
