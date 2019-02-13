@@ -216,7 +216,7 @@ class Form extends React.Component {
               text={this.state.textWeightBox}
               placeholder={"in kg..."}
               labelName="Parcel Weight"
-              type="number"
+              type="text"
             />
             <InputForm
               nameClass={this.state.displayOffOn}
