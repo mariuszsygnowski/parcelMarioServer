@@ -199,7 +199,6 @@ class Form extends React.Component {
               />
               <InputForm
                 nameClass={this.state.displayOffOn}
-                nameClass={this.state.invalidInput}
                 receiveText={this.postcodeTo}
                 text={this.state.postcodeTo}
                 placeholder={"Postcode / Zip. Default is EC1R 3DD"}
@@ -212,12 +211,12 @@ class Form extends React.Component {
           <div className="form__main__dimensionAndWeight container">
             <InputForm
               nameClass="displayBlock"
+              inputClass={this.state.invalidInput}
               receiveText={this.weightBox}
-              text={this.state.weightBox}
+              text={this.state.textWeightBox}
               placeholder={"in kg..."}
               labelName="Parcel Weight"
               type="number"
-              onF={this.on}
             />
             <InputForm
               nameClass={this.state.displayOffOn}
