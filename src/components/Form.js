@@ -213,7 +213,7 @@ class Form extends React.Component {
               nameClass="displayBlock"
               inputClass={this.state.invalidInput}
               receiveText={this.weightBox}
-              text={this.state.textWeightBox}
+              text={this.state.weightBox}
               placeholder={"in kg..."}
               labelName="Parcel Weight"
               type="text"
